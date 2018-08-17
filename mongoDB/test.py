@@ -20,9 +20,9 @@ class TestMethods(unittest.TestCase):
         response = self.app.get("/todo/api/v1.0/5b75ae8de09ec81d1cc35f7a")
         self.assertEqual(response.status_code, 200)
 
-    # def test_post(self):
-    #     response = self.app.post("/todo")
-    #     self.assertEqual(response.status_code, 200)
+    def test_post(self):
+        response = self.app.post("/todoAdd")
+        self.assertEqual(response.status_code, 200)
 
     def test_put(self):
         response = self.app.put("/todo/api/v1.0/5b75ae8de09ec81d1cc35f7a" )

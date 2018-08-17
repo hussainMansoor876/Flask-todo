@@ -12,8 +12,13 @@ app.config['MONGO_URI']='mongodb://todo123:todo123@ds119702.mlab.com:19702/todo-
 app.config['SECRET_KEY'] = 'todo Assignment'
 mongo = PyMongo(app)
 
-@app.route('/', methods=['GET'])
+@app.route('/')
 def index():
+    form = TodoForm()
+    return render_template('index.html', form=form)
+
+@app.route('/todoAdd',methods=["POST"])
+def add():
     add = mongo.db.todo
     title = None
     description = None
@@ -23,9 +28,7 @@ def index():
         title = form.title.data
         description = form.description.data
         add.insert({'title':title,'description':description,'task':task})
-        form.title.data = ''
-        form.description.data = ''
-    return render_template('index.html', form=form)
+    return 'Add Successfully'
 
 
 @app.route('/todo/api/v1.0/',methods=["GET","POST"])
