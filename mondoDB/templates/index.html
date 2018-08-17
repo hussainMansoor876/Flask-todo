@@ -1,0 +1,9 @@
+<form method="POST">
+    {{ form.hidden_tag() }}
+    {{ form.title.label }} {{ form.title() }}
+    <br>
+    <br>
+    {{ form.description.label }} {{ form.description() }}
+    <br>
+    {{ form.submit() }}
+    </form>
