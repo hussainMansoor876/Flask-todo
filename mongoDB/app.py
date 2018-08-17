@@ -28,7 +28,7 @@ def index():
     return render_template('index.html', form=form)
 
 
-@app.route('/todo/api/v1.0/',methods=["POST"])
+@app.route('/todo/api/v1.0/',methods=["GET","POST"])
 def todoApi():
     data = []
     api = mongo.db.todo.find()
@@ -77,6 +77,7 @@ def todoApi1():
     for obj in api:
         data.append({'obj':str(obj)})
     return jsonify({'data':data})
+
 
 if __name__ == '__main__':
     app.run(debug=True)

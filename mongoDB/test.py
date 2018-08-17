@@ -1,20 +1,32 @@
 import unittest
+import sys,json
+from app import app
 
-class TestStringMethods(unittest.TestCase):
+class TestMethods(unittest.TestCase):
 
-    def test_upper(self):
-        self.assertEqual('foo'.upper(), 'FOO')
+    def setUp(self):
+        app.config["TESTING"]=True
+        self.app=app.test_client()
 
-    def test_isupper(self):
-        self.assertTrue('FOO'.isupper())
-        self.assertFalse('Foo'.isupper())
 
-    def test_split(self):
-        s = 'hello world'
-        self.assertEqual(s.split(), ['hello', 'world'])
-        # check that s.split fails when the separator is not a string
-        with self.assertRaises(TypeError):
-            s.split(2)
+    def tearDown(self):
+        pass
+
+    def test_index_get(self):
+        response=self.app.get("/todo/api/v1.0/")
+        self.assertEqual(response.status_code,200)
+
+    def test_one_get(self):
+        response = self.app.get("/todo/api/v1.0/5b75ae8de09ec81d1cc35f7a")
+        self.assertEqual(response.status_code, 200)
+
+    # def test_post(self):
+    #     response = self.app.post("/todo")
+    #     self.assertEqual(response.status_code, 200)
+
+    def test_put(self):
+        response = self.app.put("/todo/api/v1.0/5b75ae8de09ec81d1cc35f7a" )
+        self.assertEqual(response.status_code, 200)
 
 if __name__ == '__main__':
     unittest.main()
